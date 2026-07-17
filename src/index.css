@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100;
+    font-feature-settings: "cv02","cv03","cv04","cv11","ss01";
+    /* Clean, single-hue wash that stays on-brand with the logo blue
+       (no competing teal/indigo tints). */
+    background-image:
+      radial-gradient(at 100% 0%, rgba(59,130,246,0.06), transparent 45%),
+      radial-gradient(at 0% 100%, rgba(59,130,246,0.04), transparent 50%);
+    background-attachment: fixed;
+  }
+  ::selection { @apply bg-brand-200 text-brand-900; }
+  /* Smooth, modern scroll + consistent box sizing for crisp layouts. */
+  html { scroll-behavior: smooth; }
+  img, svg, video { display: block; max-width: 100%; }
+  /* Tabular numbers for KPIs */
+  .nums { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+}
+
+@layer components {
+  /* Buttons --------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+           transition-all duration-200 ease-out outline-none select-none whitespace-nowrap
+           focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-600
+           disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.985];
+  }
+  .btn-primary {
+    @apply btn text-white shadow-glow
+           bg-gradient-to-b from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950;
+  }
+  .btn-violet {
+    @apply btn text-white shadow-glow-violet
+           bg-gradient-to-br from-violet-500 to-violet-700 hover:from-violet-600 hover:to-violet-800;
+  }
+  .btn-ghost {
+    @apply btn bg-white/80 text-slate-700 hover:bg-white border border-slate-200 backdrop-blur shadow-soft hover:shadow-lift;
+  }
+  .btn-soft {
+    @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200/70;
+  }
+  .btn-danger {
+    @apply btn text-white bg-gradient-to-br from-rose-500 to-rose-700 hover:from-rose-600 hover:to-rose-800 shadow-soft;
+  }
+
+  /* Inputs ---------------------------------------------- */
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800
+           shadow-innerline placeholder:text-slate-400
+           focus:border-brand-600 focus:ring-4 focus:ring-brand-100 outline-none transition;
+  }
+  .label {
+    @apply block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1.5;
+  }
+
+  /* Cards ----------------------------------------------- */
+  .card {
+    @apply rounded-2xl bg-white border border-slate-200/70 shadow-soft;
+  }
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift hover:border-brand-200;
+  }
+
+  /* Badges ---------------------------------------------- */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1;
+  }
+
+  /* Links ----------------------------------------------- */
+  .link {
+    @apply text-brand-700 hover:text-brand-900 font-semibold underline-offset-2 hover:underline;
+  }
+
+  /* Section labels -------------------------------------- */
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.16em] font-extrabold text-brand-700;
+  }
+
+  /* Glass surface --------------------------------------- */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/60 shadow-soft;
+  }
+
+  /* Shimmering loader bar ------------------------------- */
+  .shimmer {
+    background: linear-gradient(90deg, rgba(226,232,240,0.4) 0%, rgba(226,232,240,0.9) 50%, rgba(226,232,240,0.4) 100%);
+    background-size: 200% 100%;
+    animation: shine 1.6s linear infinite;
+  }
+}
+
+/* Animations  -------------------------------------------- */
+@keyframes slideDown {
+  from { transform: translateY(-12px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+/* Custom scrollbar -------------------------------------- */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(15,23,42,0.16);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgba(15,23,42,0.32); background-clip: padding-box; }
+
+/* Overview Activity feed - slim brand-tinted scrollbar so the inner list
+   reads as scrollable without a chunky default rail. Firefox uses the
+   `scrollbar-width / scrollbar-color` properties (set on the element). */
+.activity-scroll { scrollbar-width: thin; scrollbar-color: rgba(29,78,216,0.35) transparent; }
+.activity-scroll::-webkit-scrollbar { width: 8px; }
+.activity-scroll::-webkit-scrollbar-track {
+  background: rgba(15,23,42,0.04);
+  border-radius: 999px;
+  margin: 4px 0;
+}
+.activity-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(29,78,216,0.55), rgba(37,99,235,0.55));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.activity-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(29,78,216,0.8), rgba(37,99,235,0.8));
+  background-clip: padding-box;
+}
